@@ -1,0 +1,19 @@
+<?php
+include 'bd.php';
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SUPPRESSION</title>
+	<meta charset="utf-8" http-equiv="refresh" content="5,url=GestionEmp.php">
+</head>
+<body>	
+		<?php 
+			 $query="DELETE FROM his WHERE Titre='".$_GET['lo']."' AND Emprunteur='".$_GET['des']."'
+			 		";
+			 mysqli_query($db,$query) or die("Error while while deleting ...") ;
+		 ?>
+		 <br><br><br><br><br><br><br><br><br>
+		 <h1><center>Le livre sélectionné a bien été supprimé !<br>Retour en cours ...</center></h1>
+</body>
+</html>

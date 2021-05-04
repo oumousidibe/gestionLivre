@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		 <div class="alert alert-dark">
+ 			<center><i class="fas fa-user"></i>&nbsp;<span style="background-color: #FFD700;">Directeur</span></center>
+ 		</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<?php 
+	include 'bd.php';
+	$query="SELECT Titre,Auteur,Description,Date_p,Statut,Emprunteur FROM his WHERE Titre='".$_GET['lo']."'
+		   ";
+	$result=mysqli_query($db,$query);
+	$titre_livre="";
+	$auteur_livre="";
+	$description_livre="";
+	$parution_livre="";
+	$statut_livre="";
+	$emprunteur_livre="";
+	$inc    =0;
+	while ($row = mysqli_fetch_row($result)) 
+	{
+		foreach ($row as $key => $value) 
+		{
+			if ($key==0) 
+			{
+				$titre_livre = $value;
+			}
+			if ($key==1)
+			 {
+				$auteur_livre = $value;
+			}
+			if ($key==2) 
+			{
+				$description_livre = $value;
+			}
+			if ($key==3) 
+			{
+				$parution_livre = $value;
+			}
+			if ($key==4) 
+			{
+				$statut_livre = $value;
+			}
+			if ($key==5) 
+			{
+				$emprunteur_livre = $value;
+			}
+		}
+		$inc++;
+	}
+ ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>Modifier les données d'un livre</title>
+ 	<link rel="icon" href="favicon.jpeg">
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ </head>
+ <body background="back16.jpg" style="color: white;">
+ 	<br> <center><h3>Modification de l'emprunt
+ 		<?php echo $_GET['lo']; ?></h3></center>
+ 		<br><br>
+ 		<div class="container">
+ 			<div class="row">
+ 				<form action="modifier.php" method="post" class="form">
+ 					   <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+ 					   <label for="titre">titre</label>
+ 					   <input type="text" name="titre" class="form-control" value="<?php echo $titre_livre ?>" required="">
+ 				<?php  
+ 					
+ 				?>
+ 					   <label for="pAuteur">Auteur</label>
+ 					   <input type="text" name="pAuteur" class="form-control" value="<?php echo $auteur_livre ?>" required="">
+ 					   <label for="pdescription">Description</label>
+ 					   <input type="text" name="pdescription" class="form-control" value="<?php echo $description_livre ?>" required="">
+ 					   <label for="pdateparution">date de parution</label>
+ 					   <input type="text" name="pdateparution" class="form-control" value="<?php echo $parution_livre ?>" required="">
+ 					   <label for="pstatut">Statut</label>
+ 					   <input type="text" name="pstatut" class="form-control" value="<?php echo $statut_livre ?>" required="">
+ 					   <label for="pemprunteur">Emprunteur</label>
+ 					   <input type="text" name="pemprunteur" class="form-control" value="<?php echo $emprunteur_livre ?>" required="">
+ 				<?php 
+ 					 
+ 				 ?>
+ 					   <button type="submit" class="btn btn-danger">Valider</button>
+ 				</form>
+ 				<?php
+			  			 if (!isset($_POST['titre'])) 
+			  			 {
+			  			 	$title = "";
+			  			 	$author= "";
+							$descrip  = "";
+							$parut ="";
+							$stat="";
+							$emp="";
+						 }
+						 else
+						 {
+						 	$title  = $_POST['titre'];
+			  			 	$author =$_POST['pAuteur'];
+							$descrip=$_POST['pdescription'];
+							$parut  =$_POST['pdateparution'];
+							$stat   =$_POST['pstatut'];
+							$emp    =$_POST['pemprunteur'];
+
+			  			 	$title  = stripcslashes($title)  			  	 	 ;
+			  			 	$author  = stripcslashes($author)  			  	 	 ;
+			  			 	$descrip  = stripcslashes($descrip)  			  	 	 ;
+			  			 	$parut  = stripcslashes($parut)  			  	 	 ;
+			  			 	$stat  = stripcslashes($stat)  			  	 	 ;
+			  			 	$emp  = stripcslashes($emp)  			  	 	 ;
+			  			    $name  = mysqli_real_escape_string($db,$name)	 ;
+
+
+			  			    $query1="UPDATE his SET Titre='".$title."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating titre...") ;
+
+			 				$query1="UPDATE his SET Auteur='".$author."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating auteur...") ;
+
+			 				$query1="UPDATE his SET Description='".$descrip."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating description...") ;
+
+			 				$query1="UPDATE his SET Date_p='".$parut."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating parution ...") ;
+
+			 				$query1="UPDATE his SET Statut='".$stat."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating statut...") ;
+
+			 				$query1="UPDATE his SET Emprunteur='".$emp."' WHERE ID='".$_POST['id']."'
+			 					   ";
+			 				mysqli_query($db,$query1) or die("Error while while updating emprunteur ...") ;
+
+
+			  			    //$query = "INSERT INTO staff VALUES ('".$login."','".$pwd."','".$newdes."') 
+			  			    //		 ";
+			  			    //mysqli_query($db,$query)or die(mysqli_error($db));
+			  		?>
+			  		<script type="text/javascript">
+			  		 		  alert("Modification Reussie dans la base de donnees");
+			  		 		  window.location = "GestionEmp.php"
+			  		 </script>
+			  		<?php 
+			  		    }            
+			  		 ?>
+ 			</div>
+ 		</div>
+ </body>
+ </html>

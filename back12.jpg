@@ -1,0 +1,133 @@
+<?php 
+ include 'bd.php';
+
+	 $num_emp[0]      ="";
+	 $nom_emp[0]   ="";
+	 $prenom_emp[0]  ="";
+	 $tel_emp[0]  ="";
+	 $adresse_emp[0]  ="";
+	 $mail_emp[0]="";
+	 $date_creation[0]="";
+	 $inc          =0;
+	$query="SELECT num_emp,nom_emp,prenom_emp,tel_emp,adresse_emp,mail_emp,date_creation FROM emprunteur ORDER BY date_creation ASC
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0) 
+	 		{
+	 			$num_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$nom_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 2) 
+	 		{
+	 			$prenom_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 3) 
+	 		{
+	 			$tel_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 4) 
+	 		{
+	 			$adresse_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 5) 
+	 		{
+	 			$mail_emp[$inc]  = $value ;
+	 		}
+	 		if ($key == 6) 
+	 		{
+	 			$date_creation[$inc]  = $value ;
+	 		}
+	 	}
+	 	$inc++;
+	 }
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<style type="text/css">
+		td,th
+		{
+			width: 200px;
+			font-weight: bold;
+		}
+		th
+		{
+			background-color: black;
+			color: #FFD700;
+			font-weight: bolder;
+		}
+	</style>
+</head>
+<body background="img9.jpg">
+		<br><br>
+	<div class="container" style="height: 800px;color: white">
+		<div class="alert alert-dark" style="background-color: black;color: #FFD700;"><input class="form-control" id="myInput" type="text" placeholder="Rechercher dans l'historique"></div>
+		<table>
+			<tr>
+				<thead>
+				<th>Identifiant</th>
+				<th>Nom</th>
+				<th>Prenom</th>
+				<th>Telephone</th>
+				<th>Adresse</th>
+				<th>Email</th>
+				<th>Date Creation</th>
+				</thead>
+			</tr>
+			<tbody id="myTable">
+			<?php 
+				 for ($i=0; $i <count($num_emp) ; $i++) 
+				 { 
+			?>
+				<tr>
+					<td><br>
+						<?php echo $num_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $nom_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $prenom_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $tel_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $adresse_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $mail_emp[$i] ?>
+					</td>
+					<td><br>
+						<?php echo $date_creation[$i] ?>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="7">
+						<hr style="border-color: red; ">
+					</td>
+				</tr>
+			<?php  	
+				 }
+			 ?>
+		</tbody>
+		</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+</html>

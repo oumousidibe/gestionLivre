@@ -1,0 +1,227 @@
+ <?php 
+     session_start();
+
+ 	 include 'bd.php';
+
+	 $true1 =0 ;
+	 $true2 =0 ;
+	 $true3 =0 ;
+	 $true4 =0 ;
+	 $true5 =0 ;
+
+	 $admine 		   ="";
+	 $admin_pass	   ="";
+
+	 $sdir             ="";
+	 $sdir_pass		   ="";
+
+	 $secr[0]		   ="";
+	 $secr_passwd[0]   ="";
+
+	 $employe_login[0] ="";
+	 $employe_passwd[0]="";
+
+	 $bravador_log     ="";
+	 $bravador_pass	   ="";
+
+
+	 $inc   		   =0 ;
+	 $query="SELECT login,password FROM staff WHERE designation='Employe'
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0) 
+	 		{
+	 			$employe_login[$inc]  = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$employe_passwd[$inc] = $value ;
+	 		}
+	 	}
+	 	$inc++;
+	 }
+
+	 for ($i=0; $i <count($employe_login) ; $i++) 
+	 { 
+	 	if ($_POST['login']==$employe_login[$i] && $_POST['passwd']==$employe_passwd[$i] ) 
+	 	{
+	 		$true1  = 1 					  ;
+	 		$_SESSION['login']=$_POST['login'];
+	 	}
+	 }
+
+	 $query="SELECT login,password FROM staff WHERE designation='Directeur'
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0)  
+	 		{
+	 			$admine     = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$admin_pass = $value ;
+	 		}
+	 	}
+	 }
+
+	 if ($_POST['login'] == $admine && $_POST['passwd'] == $admin_pass) 
+	 	{
+	 		$true2 = 1 ;
+	 	}
+
+	 $query="SELECT login,password FROM staff WHERE designation='SousDirecteur'
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0)  
+	 		{
+	 			$sdir     = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$sdir_pass = $value ;
+	 		}
+	 	}
+	 }
+
+	 if ($_POST['login'] == $sdir && $_POST['passwd'] == $sdir_pass) 
+	 	{
+	 		$true3 = 1 ;
+	 	}
+
+	$inc=0;
+	$query="SELECT login,password FROM staff WHERE designation='Secretaire'
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0) 
+	 		{
+	 			$secr[$inc]  = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$secr_passwd[$inc] = $value ;
+	 		}
+	 	}
+	 	$inc++;
+	 }
+
+	 for ($i=0; $i <count($secr) ; $i++) 
+	 { 
+	 	if ($_POST['login']==$secr[$i] && $_POST['passwd']==$secr_passwd[$i] ) 
+	 	{
+	 		$true4  = 1 					  ;
+	 		$_SESSION['login']=$_POST['login'];
+	 	}
+	 }
+	 $query="SELECT login,password FROM staff WHERE designation='Bravador'
+	 		";
+	 $result=mysqli_query($db,$query) or die(mysqli_error($db)) ;
+	 
+	 while ($row = mysqli_fetch_row($result)) 
+	 {
+	 	foreach ($row as $key => $value) 
+	 	{
+	 		if ($key == 0)  
+	 		{
+	 			$bravador_log     = $value ;
+	 		}
+	 		if ($key == 1) 
+	 		{
+	 			$bravador_pass = $value ;
+	 		}
+	 	}
+	 }
+
+	 if ($_POST['login'] == $bravador_log && $_POST['passwd'] == $bravador_pass) 
+	 	{
+	 		$true5 = 1 ;
+	 	}
+  ?>
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>Bienvenue !</title>
+ 	<meta charset="utf-8" name="viewport" content="width=device-width ,initial-scale=1">
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ </head>
+ 		
+ 			   <?php 
+ 			   		 if ($true1==1) 
+ 			   		 {
+ 			   		 	$_SESSION['ok'] = 'true1' ;
+ 			   	?>
+ 			   		<script type="text/javascript">
+ 			   			window.location.href = 'employe.php' ;
+ 			   		</script>
+ 			   	<?php
+ 			   		 }
+ 			   		 elseif ($true2==1) 
+ 			   		 {
+ 			   		 	$_SESSION['ok'] = 'true2' ;
+ 			   	?>
+ 			   		<script type="text/javascript">
+ 			   			window.location.href = 'Directeur.php' ;
+ 			   		</script>
+ 			   	<?php
+ 			   		 }
+ 			   		 elseif ($true3==1) 
+ 			   		 {
+ 			   		 	$_SESSION['ok'] = 'true3' ;
+ 			   	?>
+ 			   		<script type="text/javascript">
+ 			   			window.location.href = 'SDirecteur.php' ;
+ 			   		</script>
+ 			   	<?php
+ 			   		 }
+ 			   		 elseif ($true4==1) 
+ 			   		 {
+ 			   		 	$_SESSION['ok'] = 'true4' ;
+ 			   	?>
+ 			   		<script type="text/javascript">
+ 			   			window.location.href = 'Secretaire.php' ;
+ 			   		</script>
+ 			   	<?php
+ 			   		 }
+ 			   		  elseif ($true5==1) 
+ 			   		 {
+ 			   		 	$_SESSION['ok'] = 'true5' ;
+ 			   	?>
+ 			   		<script type="text/javascript">
+ 			   			window.location.href = 'Bravador.php' ;
+ 			   		</script>
+ 			   	<?php
+ 			   		 }
+ 			   		 else
+ 			   		 {
+ 			   	?>
+ 			   			<br><br><br><br><br><br>
+ 			   			<div class="container"> <strong><h1>Authentifation echou&eacute;e ! Veuillez re&eacute;ssayer</h1></strong>
+ 			   					<h3><a href="./index0.php">Retour &agrave; l'accueil</a></h3>
+ 			   			</div>
+ 			   	<?php 	 	
+ 			   		 }
+ 			   ?>
+ 		
+ </html>

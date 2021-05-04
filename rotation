@@ -1,0 +1,83 @@
+<?php 
+	  include 'bd.php';
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js" integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous"></script>
+</head>
+<body background="img9.jpg">	
+		<br><br>
+		<div class="container" style="color: white;font-weight: bold; ">
+			
+				<form action="add_emp.php" method="post">
+						<div class="form-group">
+							<label>Entrer le nom </label><br>
+							<input type="text" name="nom_emprunteur" class="form-control" required=""><br>
+						</div>
+						<div class="form-group">
+							<label>Entrer le prenom</label><br>
+							<input type="text" name="prenom_emprunteur" class="form-control" required=""><br>
+						</div>
+						<div>
+							<label>le numero de telephone</label><br>
+							<input type="telephone" name="numero_emprunteur" class="form-control" required=""><br>
+						</div>
+						<div>
+							<label>Entrer l'adresse</label><br>
+							<input type="text" name="adresse_emprunt" class="form-control" required=""><br>
+						</div>
+
+						<div>
+							<label>Entrer l'identifiant (6 caracteres)</label><br>
+							<input type="text" name="id_emprunteur" class="form-control" required=""><br>
+						</div>
+						<div>
+							<label>Entrer l'adresse mail</label><br>
+							<input type="text" name="mail_emprunteur" class="form-control" required="">
+						</div><br>
+						<div>
+							<button type="submit" class="btn btn-success">Valider !</button>
+						</div>
+						<?php 
+							  if (!isset($_POST['nom_emprunteur'])) 
+							  {
+							  	$nom_emprunteur        ="";
+							  	$prenom_emprunteur     ="";
+							  	$numero_emprunteur     ="";
+							  	$adresse_emprunt	   ="";
+							  	$id_emprunteur 	       ="";
+							  	$mail_emprunteur       ="";
+							  }
+							  else
+							  {
+							  	$nom_emprunteur    	 =$_POST['nom_emprunteur']    ;
+							  	$prenom_emprunteur    =$_POST['prenom_emprunteur'] ;
+							  	$numero_emprunteur    =$_POST['numero_emprunteur']  ;
+							  	$adresse_emprunt   =$_POST['adresse_emprunt']   ;
+							  	$id_emprunteur      =$_POST['id_emprunteur']    ;
+							  	$mail_emprunteur   =$_POST['mail_emprunteur'] ;
+							  	$dateDepot       =date("Y-m-d")          ;
+
+							  	$query="INSERT INTO emprunteur
+							  			VALUES 
+							  			('".$nom_emprunteur."','".$prenom_emprunteur."','".$numero_emprunteur."','".$adresse_emprunt."','".$id_emprunteur."','".$mail_emprunteur."','".$dateDepot."')
+							  		   ";
+							    mysqli_query($db,$query)or die(mysqli_error($db));
+					?>
+			  		<script type="text/javascript">
+			  		 		  alert("Insertion Reussie dans la base de donnees");
+			  		 </script>
+			  		<?php 
+			  		    }            
+			  		?>
+				</form>
+			
+		</div>
+</body>
+</html>
